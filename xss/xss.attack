@@ -1,0 +1,11 @@
+Feature: Look for cross site scripting (xss) using arachni against out site
+
+Scenario: Do a quick check for XSS and verify no issues are found on the login page
+ Given "arachni" is installed
+ And the following profile:
+ | name | value                                      |
+ | url  | http://docker.for.mac.localhost:8080/login |
+ """
+ arachni --checks-xss --scope-page-limit=1 <url>
+ """
+ Then the output should contain "0 issues were detected."
